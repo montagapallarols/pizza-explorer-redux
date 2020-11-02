@@ -14,12 +14,15 @@ const selectUser = reduxState => {
 // and then add a line of text showing the total number of known pizzas.
 
 const selectListOfPizzas = reduxState => {
-    return reduxState.pizzas 
+    return reduxState.pizzas
     
 }
 
-// Render the pizzas to an <ul> list with an <li> list item for each pizza, 
-// showing the pizza's name and description as well as number of times it was bought.
+// Modify the selector you wrote to sort the pizzas by popularity. 
+// (We consider pizzas that were bought more often more popular than 
+//     those that were bought less often.)
+
+
 
 export default function PizzaList() {
     const user = useSelector(selectUser);
@@ -27,16 +30,26 @@ export default function PizzaList() {
     const pizzas = useSelector(selectListOfPizzas)
     console.log("What is pizzas?", pizzas)
 
+    function compare(a,b) {
+        return b.bought - a.bought;
+    }
+
+    const sortedPizzas = pizzas.sort(compare)
+
   return (
     <div>
       <h1>Pizza Explorer</h1>
       <p>
         Welcome back, <strong>{user.name}</strong>! Your favorite pizzas:
       </p>
-      <h2>List of pizzas:</h2>
+      <h2>List of pizzas ({pizzas.length})</h2>
       <ul>
-        {pizzas.map(pizza => {
-            return <li><strong>{pizza.name}</strong>: <p>{pizza.description}</p></li>
+        {sortedPizzas.map(pizza => {
+            return <li>
+                <strong>{pizza.name}</strong>: 
+            <p>{pizza.description}</p>
+        <p><em>Bought {pizza.bought} times</em></p>
+            </li>
         })}
       </ul>
     </div>
