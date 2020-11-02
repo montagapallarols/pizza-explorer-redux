@@ -18,11 +18,6 @@ const selectListOfPizzas = reduxState => {
     
 }
 
-// Modify the selector you wrote to sort the pizzas by popularity. 
-// (We consider pizzas that were bought more often more popular than 
-//     those that were bought less often.)
-
-
 
 export default function PizzaList() {
     const user = useSelector(selectUser);
